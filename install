@@ -1,0 +1,17 @@
+#! /bin/bash -eu
+
+echo "Friendly Warning: If dotfiles isn't in ~ then you're about to get screwed."
+
+make_symlink() {
+    if [ -e ~/$1 ]; then
+	rm -f ~/$1
+    fi
+    ln -s ~/dotfiles/$1 ~/$1
+}
+
+make_symlink .bashrc
+make_symlink .bash_aliases
+make_symlink .emacs
+make_symlink .htoprc
+
+cp .gitconfig ..
