@@ -1,0 +1,23 @@
+[user]
+#	name = remi.attab@gmail.com
+#	email = remi.attab@gmail.com
+
+[github]
+#	user = RAttab
+#	token = FILLMEIN
+
+[color]
+	ui = auto
+
+[alias]
+	log = log --stat
+	graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	a = add	
+	d = diff
+	diff-master = !echo "diff master...origin/master:" && git diff master...origin/master --stat && echo "" && echo "diff origin/master...master:" && git diff origin/master...master --stat
+
+	cm = commit -m
+	ca = commit --amend
+	up = !git pull && git submodule update --init
+
+
