@@ -1,14 +1,5 @@
-[user]
-#	name = remi.attab@gmail.com
-#	email = remi.attab@gmail.com
-
-[github]
-#	user = RAttab
-#	token = FILLMEIN
-
 [color]
 	ui = auto
-
 [alias]
 	log = log --stat
 	graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
@@ -19,5 +10,3 @@
 	cm = commit -m
 	ca = commit --amend
 	up = !git pull && git submodule update --init
-
-

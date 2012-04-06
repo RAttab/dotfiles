@@ -1,0 +1,28 @@
+#! /bin/bash -eu
+
+make_symlink() {
+    echo "symlink-ed $1"
+    if [ -e ~/$1 ]; then
+	rm -f ~/$1
+    fi
+    ln -s ~/dotfiles/$1 ~/$1
+}
+
+# symlink our shared config files.
+make_symlink .bashrc
+make_symlink .htoprc
+
+# dump the git config template if not already present.
+if [ ! -f ~/.gitconfig-head ]; then
+    echo "copied .gitconfig-head template"
+    cp .gitconfig-head ~/.gitconfig-head
+fi
+
+# build the new .gitconfig
+if [ -f ~/.gitconfig ]; then
+    rm -f .gitconfig
+fi
+
+echo "built new .gitconfig"
+cat ~/.gitconfig-head > ~/.gitconfig
+cat .gitconfig-base >> ~/.gitconfig

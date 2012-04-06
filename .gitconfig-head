@@ -1,0 +1,8 @@
+[user]
+	name = Rémi Attab
+#	email = remi.attab@gmail.com
+[github]
+	user = RAttab
+#	token = FILLMEIN
+[include]
+	path = ~/dotfiles/.gitconfig-base

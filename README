@@ -1,0 +1,19 @@
+My dotfiles that I wish to cary around. Note that the emacs stuff is
+in the .emacs.d repo.
+
+Note that the .gitconfig file is constructed from 2 files:
+
+.gitconfig-base: contains all the config shared among multiple
+                 environment (aliases, colors, etc.)
+
+.gitconfig-head: contains the information specific to an environment
+                 (github token, commit address, etc.)
+
+The head file within the dotfile folder is a templated that is copied
+over into the home folder when the setup script is first executed. This
+means that after the template has been copied over, you should modify
+the file and run the setup script again to form the final .gitconfig.
+
+The whole point of this convoluted process is to not have secret
+information in plain sight on github while still having an easy way to
+shared a git configuration file.
