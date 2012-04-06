@@ -4,5 +4,3 @@
 [github]
 	user = RAttab
 #	token = FILLMEIN
-[include]
-	path = ~/dotfiles/.gitconfig-base
