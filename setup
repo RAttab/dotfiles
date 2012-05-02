@@ -11,6 +11,7 @@ make_symlink() {
 # symlink our shared config files.
 make_symlink .bashrc
 make_symlink .htoprc
+make_symlink .gdbinit
 
 # dump the git config template if not already present.
 if [ ! -f ~/.gitconfig-head ]; then
