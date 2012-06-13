@@ -11,6 +11,7 @@
 #
 #   The following STL containers are currently supported:
 #
+#       std::shared_ptr<T> -- via pshared command
 #       std::vector<T> -- via pvector command
 #       std::list<T> -- via plist or plist_member command
 #       std::map<T,T> -- via pmap or pmap_member command
@@ -37,6 +38,33 @@
 #   Modified to work with g++ 4.3 by Anders Elton
 #   Also added _member functions, that instead of printing the entire class in map, prints a member.
 
+
+#
+# std::shared_ptr<>
+#
+
+define pshared
+        if $argc == 0
+       	  	help pshared
+	else
+		set $ptr = *($arg0._M_ptr)
+		set $ref = $arg0._M_refcount
+	end
+	if $argc == 1
+		p $ptr
+	end
+	if $argc == 2
+	   	p ($ptr).$arg1
+	end
+end
+
+document pshared
+	Prints std::shared_ptr<T> information.
+	Syntax: pshared <var> <attribute>: Dereferences a shared ptr and prints the object.
+	Examples:
+	pshared sp - prints the object pointed to by sp.
+	pshared sp x - prints the object sp->x
+end
 
 
 #

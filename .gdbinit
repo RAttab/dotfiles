@@ -1,5 +1,7 @@
 source ~/dotfiles/stl-views.gdb
 
+set disassembly-flavor intel
+
 ###############################################################################
 # Electric Fence
 #
