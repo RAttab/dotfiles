@@ -63,7 +63,7 @@ alias agi='sudo apt-get install'
 
 # Highlights a word or whatever in red  within a stream.
 function hl {
-    sed -e "s/${1}/$(tput setaf 1)$(tput bold)${1}$(tput sgr0)/g"
+    sed -r "s/(${1})/$(tput setaf 1)$(tput bold)\1$(tput sgr0)/g"
 }
 
 # env specific aliases
