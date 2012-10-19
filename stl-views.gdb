@@ -708,15 +708,3 @@ document pwstring
 	Example:
 	pwstring s - Prints content, size/length, capacity and ref-count of wstring s
 end
-
-#
-# C++ related beautifiers (optional)
-#
-
-set print pretty on
-set print object on
-set print static-members on
-set print vtbl on
-set print demangle on
-set demangle-style gnu-v3
-set print sevenbit-strings off

@@ -1,13 +1,31 @@
+################################################################################
+# Random tweaks that makes my gdb life easier.
+################################################################################
+
 source ~/dotfiles/stl-views.gdb
+source ~/dotfiles/dasdb.gdb
 
 set disassembly-flavor intel
 
-###############################################################################
+#
+# C++ related beautifiers (optional)
+#
+
+set print pretty on
+set print object on
+set print static-members on
+set print vtbl on
+set print demangle on
+set demangle-style gnu-v3
+set print sevenbit-strings off
+
+
+################################################################################
 # Electric Fence
 #
 # Debian's Electric Fence package provides efence as a shared library, which is
 # very useful.
-###############################################################################
+################################################################################
 
 define efence
         set environment EF_PROTECT_BELOW 0
@@ -39,3 +57,5 @@ end
 document nofence
 Disable memory allocation debugging through Electric Fence (efence(3)).
 end
+
+
