@@ -19,8 +19,8 @@ document dasdb
         dasdb_trie	- inspect a trie header in the mmap
         dasdb_node	- inspect a trie node in the mmap
         dasdb_trieptr	- equivalent of TriePtr::fromBits()
-        dasd_boff       - offset from TriePtr bits
-        dasd_poff       - offset from TriePtr object
+        dasdb_boff      - offset from TriePtr bits
+        dasdb_poff      - offset from TriePtr object
         dasdb_region	- region bounds from an area
         dasdb_rstart	- region start from an area
         dasdb_rlen	- region length from an area
@@ -29,11 +29,11 @@ end
 define dasdb_trie
     if $argc != 2
 	help dasdb_trie
+    else
+	set $ptr = ($arg0) + (($arg1) + 6) * 0x40
+	p/x $ptr
+	p *((TrieBlock*)$ptr)
     end
-
-    set $ptr = ($arg0) + (($arg1) + 6) * 0x40
-    p/x $ptr
-    p *((TrieBlock*)$ptr)
 end
 
 document dasdb_trie
@@ -45,11 +45,11 @@ end
 define dasdb_node
     if $argc != 3
 	help dasdb_node
+    else
+	set $ptr = ($arg0) + ($arg1)
+	p/x $ptr
+	p *(($arg2 *)$ptr)
     end
-
-    set $ptr = ($arg0) + ($arg1)
-    p/x $ptr
-    p *(($arg2 *)$ptr)
 end
 
 document dasdb_node
@@ -59,13 +59,19 @@ end
 
 
 define dasdb_trieptr
-    if $argc == 0
+    if $argc > 1
 	help dasdb_trieptr
-    end
+    else
+	set $ptr = (TriePtr*) malloc(sizeof(TriePtr))
+	p $ptr
 
-    call malloc(sizeof(TriePtr))
-    set ((TriePtr*)($1))->bits = $arg0
-    p *((TriePtr*)($1))
+	if $argc == 1
+	    set $ptr->bits = $arg0
+	    p *$ptr
+	else
+	    set $ptr->bits = 0
+	end
+    end
 end
 
 document dasdb_trieptr
@@ -78,9 +84,9 @@ end
 define dasdb_boff
     if $argc == 0
 	help dasdb_boff
+    else
+	p/x (($arg0) >> 7) << 6
     end
-
-    p/x (($arg0) >> 7) << 6
 end
 
 document dasdb_boff
@@ -92,9 +98,9 @@ end
 define dasdb_poff
     if $argc == 0
 	help dasdb_poff
+    else
+	p/x ($arg0).data << 6
     end
-
-    p/x ($arg0).data << 6
 end
 
 document dasdb_poff
@@ -106,9 +112,9 @@ end
 define dasdb_region
     if $argc == 0
 	help dasdb_region
+    else
+	p ($arg0).region_.data
     end
-
-    p ($arg0).region_.data
 end
 
 document dasdb_region
@@ -121,9 +127,9 @@ end
 define dasdb_rstart
     if $argc == 0
 	help dasdb_region
+    else
+	p ($arg0).region_.data.start
     end
-
-    p ($arg0).region_.data.start
 end
 
 document dasdb_rstart
@@ -136,9 +142,9 @@ end
 define dasdb_rlen
     if $argc == 0
 	help dasdb_region
+    else
+	p ($arg0).region_.data.length
     end
-
-    p ($arg0).region_.data.length
 end
 
 document dasdb_rstart
