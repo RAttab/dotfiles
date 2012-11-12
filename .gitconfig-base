@@ -12,3 +12,5 @@
 	cm = commit -m
 	ca = commit --amend
 	up = !git pull && git submodule update --init
+
+        submodules-to-master = submodule foreach "git fetch && git checkout master && git pull origin master"

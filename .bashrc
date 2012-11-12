@@ -66,6 +66,10 @@ function hl {
     sed -r "s/(${1})/$(tput setaf 1)$(tput bold)\1$(tput sgr0)/g"
 }
 
+function fail-test {
+    make -n test 2>&1 | egrep "^rm -f build/x86_64/tests/.+\.\{passed,failed\}.*" | sed -r "s#^rm -f build/x86_64/tests/(.+)\.\{passed,failed\}.*#\\1#"
+}
+
 # env specific aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
