@@ -10,8 +10,18 @@ make_symlink() {
 
 # symlink our shared config files.
 make_symlink .bashrc
-make_symlink .htoprc
 make_symlink .gdbinit
+make_symlink .htoprc
+
+# Newer versions of htop uses the .config folder.
+echo "symlink-ed htoprc"
+if [ -e ~/.config/htop/htoprc ]; then
+    rm -f ~/.config/htop/htoprc
+fi
+
+mkdir -p ~/.config/htop
+ln -s ~/dotfiles/.htoprc ~/.config/htop/htoprc
+
 
 # dump the git config template if not already present.
 if [ ! -f ~/.gitconfig-head ]; then
