@@ -18,6 +18,7 @@ document dasdb
     DasDB utility functions:
         dasdb_trie	- inspect a trie header in the mmap
         dasdb_node	- inspect a trie node in the mmap
+        dasdb_dbn 	- inspect a DenseBranchingNode mmap
         dasdb_trieptr	- equivalent of TriePtr::fromBits()
         dasdb_boff      - offset from TriePtr bits
         dasdb_poff      - offset from TriePtr object
@@ -55,6 +56,37 @@ end
 document dasdb_node
     Prints the content of a node at the given offset.
     Syntax dasdb_node <region> <offset> <type>
+end
+
+define dasdb_dbn
+    if $argc != 2
+	help dasdb_node
+    else
+	dasdb_node $arg0 $arg1 DenseBranchingNodeRepr
+
+	set $dbn = *((DenseBranchingNodeRepr *)(($arg0) + ($arg1)))
+
+	if $dbn.numBits > 1
+	    set $storagePtr = (DenseBranchingNodeBranch*) (($arg0) + $dbn.storageOffset)
+
+	else
+	    set $storagePtr = (DenseBranchingNodeBranch*) (($arg0) + ($arg1) + 32)
+	end
+
+	set $i = 0
+	while $i < (1 << $dbn.numBits)
+	    if ($storagePtr + $i).size > 0
+		printf "branch[%u]: ", $i
+		p *($storagePtr + $i)
+	    end
+	    set $i++
+	end
+    end
+end
+
+document dasdb_dbn
+    Prints the content of a DenseBranchingNode at the given offset.
+    Syntax dasdb_dbn <region> <offset>
 end
 
 
