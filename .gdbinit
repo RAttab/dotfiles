@@ -4,6 +4,7 @@
 
 source ~/dotfiles/stl-views.gdb
 source ~/dotfiles/dasdb.gdb
+source ~/dotfiles/jml.gdb
 
 set disassembly-flavor intel
 
