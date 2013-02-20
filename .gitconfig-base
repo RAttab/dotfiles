@@ -5,12 +5,11 @@
 [alias]
 	log = log --stat
 	graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-	a = add	
-	d = diff
 	diff-master = !echo "diff master...origin/master:" && git diff master...origin/master --stat && echo "" && echo "diff origin/master...master:" && git diff origin/master...master --stat
 
 	cm = commit -m
 	ca = commit --amend
 	up = !git pull && git submodule update --init
+	rb = git fetch && git rebase && git submodule update --init
 
         submodules-to-master = submodule foreach "git fetch && git checkout master && git pull origin master"
