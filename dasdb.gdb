@@ -25,6 +25,16 @@ document dasdb
         dasdb_region	- region bounds from an area
         dasdb_rstart	- region start from an area
         dasdb_rlen	- region length from an area
+        dasdb_setup     - setup the debugging env for dasdb
+end
+
+define dasdb_setup
+    handle SIGSEGV nostop
+    jml_abort
+end
+
+document dasdb_setup
+    Disables the normal signals issued by dasdb.
 end
 
 define dasdb_trie
