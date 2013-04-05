@@ -26,6 +26,7 @@ define hookpost-backtrace
 	sed -r "s_(([a-zA-Z0-9]*::)?[a-zA-Z0-9_?]*) \(_$(tput setaf 3)$(tput bold)\1$(tput sgr0) (_" | \
 	sed -r "s_ operator\(\) \(_ $(tput setaf 3)$(tput bold)operator()$(tput sgr0) (_" | \
 	sed -r "s_([a-zA-Z0-9_#]*)=_$(tput setaf 3)\1$(tput sgr0)=_g" | \
+	sed -r "s_(lambda)\(_ $(tput setaf 3)$(tput bold)\1$(tput sgr0)(_g" | \
 	sed -r "s_ (in|at) _ $(tput setaf 9)$(tput bold)\1$(tput sgr0) _g"
     shell rm -f /tmp/gdb-color-pipe
 end
