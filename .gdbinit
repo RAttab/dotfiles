@@ -8,6 +8,10 @@ source ~/dotfiles/jml.gdb
 
 set disassembly-flavor intel
 
+# Prompt
+
+set prompt \033[01;34m(gdb) \033[01;00m
+
 #
 # C++ related beautifiers (optional)
 #
