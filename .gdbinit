@@ -11,7 +11,7 @@ source ~/dotfiles/colors.gdb
 set disassembly-flavor intel
 
 #
-# C++ related beautifiers (optional)
+# C++ related beautifiers
 #
 
 set print pretty on
@@ -32,9 +32,9 @@ set print sevenbit-strings off
 ################################################################################
 
 define efence
-        set environment EF_PROTECT_BELOW 0
-        set environment LD_PRELOAD /usr/lib/libefence.so.0.0
-        echo Enabled Electric Fence\n
+    set environment EF_PROTECT_BELOW 0
+    set environment LD_PRELOAD /usr/lib/libefence.so.0.0
+    echo Enabled Electric Fence\n
 end
 document efence
 Enable memory allocation debugging through Electric Fence (efence(3)).
@@ -43,9 +43,9 @@ end
 
 
 define underfence
-        set environment EF_PROTECT_BELOW 1
-        set environment LD_PRELOAD /usr/lib/libefence.so.0.0
-        echo Enabled Electric Fence for undeflow detection\n
+    set environment EF_PROTECT_BELOW 1
+    set environment LD_PRELOAD /usr/lib/libefence.so.0.0
+    echo Enabled Electric Fence for undeflow detection\n
 end
 document underfence
 Enable memory allocation debugging for underflows through Electric Fence 
@@ -55,8 +55,8 @@ end
 
 
 define nofence
-        unset environment LD_PRELOAD
-        echo Disabled Electric Fence\n
+    unset environment LD_PRELOAD
+    echo Disabled Electric Fence\n
 end
 document nofence
 Disable memory allocation debugging through Electric Fence (efence(3)).

@@ -5,10 +5,6 @@
 # so much faster.
 ################################################################################
 
-define runFreq
-    run --router-uri=tcp://ag4.recoset.com:9975 --subscription-uri=tcp://ag4.recoset.com:9973 --carbon-prefix=test 1> freq.txt
-end
-
 
 define dasdb
     help dasdb

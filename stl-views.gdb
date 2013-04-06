@@ -2,8 +2,8 @@
 #   STL GDB evaluators/views/utilities - 1.04
 #
 #   The new GDB commands:
-# 	    are entirely non instrumental
-# 	    do not depend on any "inline"(s) - e.g. size(), [], etc
+#         are entirely non instrumental
+#         do not depend on any "inline"(s) - e.g. size(), [], etc
 #       are extremely tolerant to debugger settings
 #
 #   This file should be "included" in .gdbinit as following:
@@ -55,22 +55,22 @@ end
 
 document pstl
     The following STL containers are currently supported:
-         std::shared_ptr<T>	- via pshared command
-         std::unique_ptr<T>	- via punique command
-         std::array<T>		- via parray command
-         std::vector<T>		- via pvector command
-         std::list<T>		- via plist or plist_member command
-         std::map<T,T>		- via pmap or pmap_member command
-         std::multimap<T,T>	- via pmap or pmap_member command
-         std::set<T>		- via pset command
-         std::multiset<T>	- via pset command
-         std::deque<T>		- via pdequeue command
-         std::stack<T>		- via pstack command
-         std::queue<T>		- via pqueue command
+         std::shared_ptr<T>    - via pshared command
+         std::unique_ptr<T>    - via punique command
+         std::array<T>        - via parray command
+         std::vector<T>        - via pvector command
+         std::list<T>        - via plist or plist_member command
+         std::map<T,T>        - via pmap or pmap_member command
+         std::multimap<T,T>    - via pmap or pmap_member command
+         std::set<T>        - via pset command
+         std::multiset<T>    - via pset command
+         std::deque<T>        - via pdequeue command
+         std::stack<T>        - via pstack command
+         std::queue<T>        - via pqueue command
          std::priority_queue<T> - via ppqueue command
-         std::bitset<n>		- via pbitset command
-         std::string		- via pstring command
-         std::widestring	- via pwstring command
+         std::bitset<n>        - via pbitset command
+         std::string        - via pstring command
+         std::widestring    - via pwstring command
 end
 
 
@@ -80,7 +80,7 @@ end
 
 define pshared
     if $argc != 1
-       	help pshared
+           help pshared
     end
 
 #    printf "refCount=%u", $arg0._M_refcount
@@ -88,10 +88,10 @@ define pshared
 end
 
 document pshared
-	Prints std::shared_ptr<T> information.
-	Syntax: pshared <var>: Prints a dereferenced shared_ptr along with its reference count.
-	Examples:
-	pshared sp - prints the object pointed to by sp.
+    Prints std::shared_ptr<T> information.
+    Syntax: pshared <var>: Prints a dereferenced shared_ptr along with its reference count.
+    Examples:
+    pshared sp - prints the object pointed to by sp.
 end
 
 #
@@ -100,17 +100,17 @@ end
 
 define punique
     if $argc != 1
-	help punique
+    help punique
     end
 
     p *($arg0)._M_t._M_head_impl
 end
 
 document punique
-	Prints std::unique_ptr<T> information.
-	Syntax: punique <var>: Prints a dereferenced unique_ptr.
-	Examples:
-	punique up - prints the object pointed to by up.
+    Prints std::unique_ptr<T> information.
+    Syntax: punique <var>: Prints a dereferenced unique_ptr.
+    Examples:
+    punique up - prints the object pointed to by up.
 end
 
 
@@ -120,50 +120,50 @@ end
 
 define parray
     if $argc == 0
-	help parray
+    help parray
     end
     if $argc == 1
-	set $i = 0
-	while $i < $size
-	    printf "elem[%u]: ", $i
-	    p *($arg0._M_instance + $i)
-	    set $i++
-	end
+    set $i = 0
+    while $i < $size
+        printf "elem[%u]: ", $i
+        p *($arg0._M_instance + $i)
+        set $i++
+    end
     end
     if $argc == 2
-	set $idx = $arg1
-	printf "elem[%u]: ", $idx
-	p *($arg0._M_instance + $idx)
+    set $idx = $arg1
+    printf "elem[%u]: ", $idx
+    p *($arg0._M_instance + $idx)
     end
     if $argc == 3
-	set $start_idx = $arg1
-	set $stop_idx = $arg2
-	if $start_idx > $stop_idx
-	    set $tmp_idx = $start_idx
-	    set $start_idx = $stop_idx
-	    set $stop_idx = $tmp_idx
-	end
-	set $i = $start_idx
-	while $i <= $stop_idx
-	    printf "elem[%u]: ", $i
-	    p *($arg0._M_instance + $i)
-	    set $i++
-	end
+    set $start_idx = $arg1
+    set $stop_idx = $arg2
+    if $start_idx > $stop_idx
+        set $tmp_idx = $start_idx
+        set $start_idx = $stop_idx
+        set $stop_idx = $tmp_idx
+    end
+    set $i = $start_idx
+    while $i <= $stop_idx
+        printf "elem[%u]: ", $i
+        p *($arg0._M_instance + $i)
+        set $i++
+    end
     end
     if $argc > 0
-	printf "Elements "
-	whatis $arg0._M_instance
+    printf "Elements "
+    whatis $arg0._M_instance
     end
 end
 
 document parray
-	Prints std::array<T> information.
-	Syntax: parray <array> <idx1> <idx2>
-	Note: idx, idx1 and idx2 must be in acceptable range [0..<array>.size()-1].
-	Examples:
-	parray v - Prints array content, size, capacity and T typedef
-	parray v 0 - Prints element[idx] from array
-	parray v 1 2 - Prints elements in range [idx1..idx2] from array
+    Prints std::array<T> information.
+    Syntax: parray <array> <idx1> <idx2>
+    Note: idx, idx1 and idx2 must be in acceptable range [0..<array>.size()-1].
+    Examples:
+    parray v - Prints array content, size, capacity and T typedef
+    parray v 0 - Prints element[idx] from array
+    parray v 1 2 - Prints elements in range [idx1..idx2] from array
 end
 
 
@@ -173,64 +173,64 @@ end
 
 define pvector
     if $argc == 0
-	help pvector
+    help pvector
     else
-	set $size = $arg0._M_impl._M_finish - $arg0._M_impl._M_start
-	set $capacity = $arg0._M_impl._M_end_of_storage - $arg0._M_impl._M_start
-	set $size_max = $size - 1
+    set $size = $arg0._M_impl._M_finish - $arg0._M_impl._M_start
+    set $capacity = $arg0._M_impl._M_end_of_storage - $arg0._M_impl._M_start
+    set $size_max = $size - 1
     end
     if $argc == 1
-	set $i = 0
-	while $i < $size
-	    printf "elem[%u]: ", $i
-	    p *($arg0._M_impl._M_start + $i)
-	    set $i++
-	end
+    set $i = 0
+    while $i < $size
+        printf "elem[%u]: ", $i
+        p *($arg0._M_impl._M_start + $i)
+        set $i++
+    end
     end
     if $argc == 2
-	set $idx = $arg1
-	if $idx < 0 || $idx > $size_max
-	    printf "idx1, idx2 are not in acceptable range: [0..%u].\n", $size_max
-	else
-	    printf "elem[%u]: ", $idx
-	    p *($arg0._M_impl._M_start + $idx)
-	end
+    set $idx = $arg1
+    if $idx < 0 || $idx > $size_max
+        printf "idx1, idx2 are not in acceptable range: [0..%u].\n", $size_max
+    else
+        printf "elem[%u]: ", $idx
+        p *($arg0._M_impl._M_start + $idx)
+    end
     end
     if $argc == 3
-	set $start_idx = $arg1
-	set $stop_idx = $arg2
-	if $start_idx > $stop_idx
-	    set $tmp_idx = $start_idx
-	    set $start_idx = $stop_idx
-	    set $stop_idx = $tmp_idx
-	end
-	if $start_idx < 0 || $stop_idx < 0 || $start_idx > $size_max || $stop_idx > $size_max
-	    printf "idx1, idx2 are not in acceptable range: [0..%u].\n", $size_max
-	else
-	    set $i = $start_idx
-	    while $i <= $stop_idx
-		printf "elem[%u]: ", $i
-		p *($arg0._M_impl._M_start + $i)
-		set $i++
-	    end
-	end
+    set $start_idx = $arg1
+    set $stop_idx = $arg2
+    if $start_idx > $stop_idx
+        set $tmp_idx = $start_idx
+        set $start_idx = $stop_idx
+        set $stop_idx = $tmp_idx
+    end
+    if $start_idx < 0 || $stop_idx < 0 || $start_idx > $size_max || $stop_idx > $size_max
+        printf "idx1, idx2 are not in acceptable range: [0..%u].\n", $size_max
+    else
+        set $i = $start_idx
+        while $i <= $stop_idx
+        printf "elem[%u]: ", $i
+        p *($arg0._M_impl._M_start + $i)
+        set $i++
+        end
+    end
     end
     if $argc > 0
-	printf "Vector size = %u\n", $size
-	printf "Vector capacity = %u\n", $capacity
-	printf "Element "
-	whatis $arg0._M_impl._M_start
+    printf "Vector size = %u\n", $size
+    printf "Vector capacity = %u\n", $capacity
+    printf "Element "
+    whatis $arg0._M_impl._M_start
     end
 end
 
 document pvector
-	Prints std::vector<T> information.
-	Syntax: pvector <vector> <idx1> <idx2>
-	Note: idx, idx1 and idx2 must be in acceptable range [0..<vector>.size()-1].
-	Examples:
-	pvector v - Prints vector content, size, capacity and T typedef
-	pvector v 0 - Prints element[idx] from vector
-	pvector v 1 2 - Prints elements in range [idx1..idx2] from vector
+    Prints std::vector<T> information.
+    Syntax: pvector <vector> <idx1> <idx2>
+    Note: idx, idx1 and idx2 must be in acceptable range [0..<vector>.size()-1].
+    Examples:
+    pvector v - Prints vector content, size, capacity and T typedef
+    pvector v 0 - Prints element[idx] from vector
+    pvector v 1 2 - Prints elements in range [idx1..idx2] from vector
 end
 
 #
@@ -239,79 +239,79 @@ end
 
 define plist
     if $argc == 0
-	help plist
+    help plist
     else
-	set $head = &$arg0._M_impl._M_node
-	set $current = $arg0._M_impl._M_node._M_next
-	set $size = 0
-	while $current != $head
-	    if $argc == 2
-		printf "elem[%u]: ", $size
-		p *($arg1*)($current + 1)
-	    end
-	    if $argc == 3
-		if $size == $arg2
-		    printf "elem[%u]: ", $size
-		    p *($arg1*)($current + 1)
-		end
-	    end
-	    set $current = $current._M_next
-	    set $size++
-	end
-	printf "List size = %u \n", $size
-	if $argc == 1
-	    printf "List "
-	    whatis $arg0
-	    printf "Use plist <variable_name> <element_type> to see the elements in the list.\n"
-	end
+    set $head = &$arg0._M_impl._M_node
+    set $current = $arg0._M_impl._M_node._M_next
+    set $size = 0
+    while $current != $head
+        if $argc == 2
+        printf "elem[%u]: ", $size
+        p *($arg1*)($current + 1)
+        end
+        if $argc == 3
+        if $size == $arg2
+            printf "elem[%u]: ", $size
+            p *($arg1*)($current + 1)
+        end
+        end
+        set $current = $current._M_next
+        set $size++
+    end
+    printf "List size = %u \n", $size
+    if $argc == 1
+        printf "List "
+        whatis $arg0
+        printf "Use plist <variable_name> <element_type> to see the elements in the list.\n"
+    end
     end
 end
 
 document plist
-	Prints std::list<T> information.
-	Syntax: plist <list> <T> <idx>: Prints list size, if T defined all elements or just element at idx
-	Examples:
-	plist l - prints list size and definition
-	plist l int - prints all elements and list size
-	plist l int 2 - prints the third element in the list (if exists) and list size
+    Prints std::list<T> information.
+    Syntax: plist <list> <T> <idx>: Prints list size, if T defined all elements or just element at idx
+    Examples:
+    plist l - prints list size and definition
+    plist l int - prints all elements and list size
+    plist l int 2 - prints the third element in the list (if exists) and list size
 end
 
 define plist_member
     if $argc == 0
-	help plist_member
+    help plist_member
     else
-	set $head = &$arg0._M_impl._M_node
-	set $current = $arg0._M_impl._M_node._M_next
-	set $size = 0
-	while $current != $head
-	    if $argc == 3
-		printf "elem[%u]: ", $size
-		p (*($arg1*)($current + 1)).$arg2
-	    end
-	    if $argc == 4
-		if $size == $arg3
-		    printf "elem[%u]: ", $size
-		    p (*($arg1*)($current + 1)).$arg2
-		end
-	    end
-	    set $current = $current._M_next
-	    set $size++
-	end
-	printf "List size = %u \n", $size
-	if $argc == 1
-	    printf "List "
-	    whatis $arg0
-	    printf "Use plist_member <variable_name> <element_type> <member> to see the elements in the list.\n"
-	end
+    set $head = &$arg0._M_impl._M_node
+    set $current = $arg0._M_impl._M_node._M_next
+    set $size = 0
+    while $current != $head
+        if $argc == 3
+        printf "elem[%u]: ", $size
+        p (*($arg1*)($current + 1)).$arg2
+        end
+        if $argc == 4
+        if $size == $arg3
+            printf "elem[%u]: ", $size
+            p (*($arg1*)($current + 1)).$arg2
+        end
+        end
+        set $current = $current._M_next
+        set $size++
+    end
+    printf "List size = %u \n", $size
+    if $argc == 1
+        printf "List "
+        whatis $arg0
+        printf "Use plist_member <variable_name> <element_type> <member> to see the elements in the list.\n"
+    end
     end
 end
 
 document plist_member
-	Prints std::list<T> information.
-	Syntax: plist <list> <T> <idx>: Prints list size, if T defined all elements or just element at idx
-	Examples:
-	plist_member l int member - prints all elements and list size
-	plist_member l int member 2 - prints the third element in the list (if exists) and list size
+    Prints std::list<T> information.
+    Syntax: plist <list> <T> <idx>: Prints list size, if T defined all elements or just element at idx
+    Examples:
+    plist_member l int member - prints all elements and list size
+    plist_member l int member 2 - prints the third element in the list (if exists) and list size
 end
 
 
@@ -321,198 +321,198 @@ end
 
 define pmap
     if $argc == 0
-	help pmap
+    help pmap
     else
-	set $tree = $arg0
-	set $i = 0
-	set $node = $tree._M_t._M_impl._M_header._M_left
-	set $end = $tree._M_t._M_impl._M_header
-	set $tree_size = $tree._M_t._M_impl._M_node_count
-	if $argc == 1
-	    printf "Map "
-	    whatis $tree
-	    printf "Use pmap <variable_name> <left_element_type> <right_element_type> to see the elements in the map.\n"
-	end
-	if $argc == 3
-	    while $i < $tree_size
-		set $value = (void *)($node + 1)
-		printf "elem[%u].left: ", $i
-		p *($arg1*)$value
-		set $value = $value + sizeof($arg1)
-		printf "elem[%u].right: ", $i
-		p *($arg2*)$value
-		if $node._M_right != 0
-		    set $node = $node._M_right
-		    while $node._M_left != 0
-			set $node = $node._M_left
-		    end
-		else
-		    set $tmp_node = $node._M_parent
-		    while $node == $tmp_node._M_right
-			set $node = $tmp_node
-			set $tmp_node = $tmp_node._M_parent
-		    end
-		    if $node._M_right != $tmp_node
-			set $node = $tmp_node
-		    end
-		end
-		set $i++
-	    end
-	end
-	if $argc == 4
-	    set $idx = $arg3
-	    set $ElementsFound = 0
-	    while $i < $tree_size
-		set $value = (void *)($node + 1)
-		if *($arg1*)$value == $idx
-		    printf "elem[%u].left: ", $i
-		    p *($arg1*)$value
-		    set $value = $value + sizeof($arg1)
-		    printf "elem[%u].right: ", $i
-		    p *($arg2*)$value
-		    set $ElementsFound++
-		end
-		if $node._M_right != 0
-		    set $node = $node._M_right
-		    while $node._M_left != 0
-			set $node = $node._M_left
-		    end
-		else
-		    set $tmp_node = $node._M_parent
-		    while $node == $tmp_node._M_right
-			set $node = $tmp_node
-			set $tmp_node = $tmp_node._M_parent
-		    end
-		    if $node._M_right != $tmp_node
-			set $node = $tmp_node
-		    end
-		end
-		set $i++
-	    end
-	    printf "Number of elements found = %u\n", $ElementsFound
-	end
-	if $argc == 5
-	    set $idx1 = $arg3
-	    set $idx2 = $arg4
-	    set $ElementsFound = 0
-	    while $i < $tree_size
-		set $value = (void *)($node + 1)
-		set $valueLeft = *($arg1*)$value
-		set $valueRight = *($arg2*)($value + sizeof($arg1))
-		if $valueLeft == $idx1 && $valueRight == $idx2
-		    printf "elem[%u].left: ", $i
-		    p $valueLeft
-		    printf "elem[%u].right: ", $i
-		    p $valueRight
-		    set $ElementsFound++
-		end
-		if $node._M_right != 0
-		    set $node = $node._M_right
-		    while $node._M_left != 0
-			set $node = $node._M_left
-		    end
-		else
-		    set $tmp_node = $node._M_parent
-		    while $node == $tmp_node._M_right
-			set $node = $tmp_node
-			set $tmp_node = $tmp_node._M_parent
-		    end
-		    if $node._M_right != $tmp_node
-			set $node = $tmp_node
-		    end
-		end
-		set $i++
-	    end
-	    printf "Number of elements found = %u\n", $ElementsFound
-	end
-	printf "Map size = %u\n", $tree_size
+    set $tree = $arg0
+    set $i = 0
+    set $node = $tree._M_t._M_impl._M_header._M_left
+    set $end = $tree._M_t._M_impl._M_header
+    set $tree_size = $tree._M_t._M_impl._M_node_count
+    if $argc == 1
+        printf "Map "
+        whatis $tree
+        printf "Use pmap <variable_name> <left_element_type> <right_element_type> to see the elements in the map.\n"
+    end
+    if $argc == 3
+        while $i < $tree_size
+        set $value = (void *)($node + 1)
+        printf "elem[%u].left: ", $i
+        p *($arg1*)$value
+        set $value = $value + sizeof($arg1)
+        printf "elem[%u].right: ", $i
+        p *($arg2*)$value
+        if $node._M_right != 0
+            set $node = $node._M_right
+            while $node._M_left != 0
+            set $node = $node._M_left
+            end
+        else
+            set $tmp_node = $node._M_parent
+            while $node == $tmp_node._M_right
+            set $node = $tmp_node
+            set $tmp_node = $tmp_node._M_parent
+            end
+            if $node._M_right != $tmp_node
+            set $node = $tmp_node
+            end
+        end
+        set $i++
+        end
+    end
+    if $argc == 4
+        set $idx = $arg3
+        set $ElementsFound = 0
+        while $i < $tree_size
+        set $value = (void *)($node + 1)
+        if *($arg1*)$value == $idx
+            printf "elem[%u].left: ", $i
+            p *($arg1*)$value
+            set $value = $value + sizeof($arg1)
+            printf "elem[%u].right: ", $i
+            p *($arg2*)$value
+            set $ElementsFound++
+        end
+        if $node._M_right != 0
+            set $node = $node._M_right
+            while $node._M_left != 0
+            set $node = $node._M_left
+            end
+        else
+            set $tmp_node = $node._M_parent
+            while $node == $tmp_node._M_right
+            set $node = $tmp_node
+            set $tmp_node = $tmp_node._M_parent
+            end
+            if $node._M_right != $tmp_node
+            set $node = $tmp_node
+            end
+        end
+        set $i++
+        end
+        printf "Number of elements found = %u\n", $ElementsFound
+    end
+    if $argc == 5
+        set $idx1 = $arg3
+        set $idx2 = $arg4
+        set $ElementsFound = 0
+        while $i < $tree_size
+        set $value = (void *)($node + 1)
+        set $valueLeft = *($arg1*)$value
+        set $valueRight = *($arg2*)($value + sizeof($arg1))
+        if $valueLeft == $idx1 && $valueRight == $idx2
+            printf "elem[%u].left: ", $i
+            p $valueLeft
+            printf "elem[%u].right: ", $i
+            p $valueRight
+            set $ElementsFound++
+        end
+        if $node._M_right != 0
+            set $node = $node._M_right
+            while $node._M_left != 0
+            set $node = $node._M_left
+            end
+        else
+            set $tmp_node = $node._M_parent
+            while $node == $tmp_node._M_right
+            set $node = $tmp_node
+            set $tmp_node = $tmp_node._M_parent
+            end
+            if $node._M_right != $tmp_node
+            set $node = $tmp_node
+            end
+        end
+        set $i++
+        end
+        printf "Number of elements found = %u\n", $ElementsFound
+    end
+    printf "Map size = %u\n", $tree_size
     end
 end
 
 document pmap
-	Prints std::map<TLeft and TRight> or std::multimap<TLeft and TRight> information. Works for std::multimap as well.
-	Syntax: pmap <map> <TtypeLeft> <TypeRight> <valLeft> <valRight>: Prints map size, if T defined all elements or just element(s) with val(s)
-	Examples:
-	pmap m - prints map size and definition
-	pmap m int int - prints all elements and map size
-	pmap m int int 20 - prints the element(s) with left-value = 20 (if any) and map size
-	pmap m int int 20 200 - prints the element(s) with left-value = 20 and right-value = 200 (if any) and map size
+    Prints std::map<TLeft and TRight> or std::multimap<TLeft and TRight> information. Works for std::multimap as well.
+    Syntax: pmap <map> <TtypeLeft> <TypeRight> <valLeft> <valRight>: Prints map size, if T defined all elements or just element(s) with val(s)
+    Examples:
+    pmap m - prints map size and definition
+    pmap m int int - prints all elements and map size
+    pmap m int int 20 - prints the element(s) with left-value = 20 (if any) and map size
+    pmap m int int 20 200 - prints the element(s) with left-value = 20 and right-value = 200 (if any) and map size
 end
 
 
 define pmap_member
     if $argc == 0
-	help pmap_member
+    help pmap_member
     else
-	set $tree = $arg0
-	set $i = 0
-	set $node = $tree._M_t._M_impl._M_header._M_left
-	set $end = $tree._M_t._M_impl._M_header
-	set $tree_size = $tree._M_t._M_impl._M_node_count
-	if $argc == 1
-	    printf "Map "
-	    whatis $tree
-	    printf "Use pmap <variable_name> <left_element_type> <right_element_type> to see the elements in the map.\n"
-	end
-	if $argc == 5
-	    while $i < $tree_size
-		set $value = (void *)($node + 1)
-		printf "elem[%u].left: ", $i
-		p (*($arg1*)$value).$arg2
-		set $value = $value + sizeof($arg1)
-		printf "elem[%u].right: ", $i
-		p (*($arg3*)$value).$arg4
-		if $node._M_right != 0
-		    set $node = $node._M_right
-		    while $node._M_left != 0
-			set $node = $node._M_left
-		    end
-		else
-		    set $tmp_node = $node._M_parent
-		    while $node == $tmp_node._M_right
-			set $node = $tmp_node
-			set $tmp_node = $tmp_node._M_parent
-		    end
-		    if $node._M_right != $tmp_node
-			set $node = $tmp_node
-		    end
-		end
-		set $i++
-	    end
-	end
-	if $argc == 6
-	    set $idx = $arg5
-	    set $ElementsFound = 0
-	    while $i < $tree_size
-		set $value = (void *)($node + 1)
-		if *($arg1*)$value == $idx
-		    printf "elem[%u].left: ", $i
-		    p (*($arg1*)$value).$arg2
-		    set $value = $value + sizeof($arg1)
-		    printf "elem[%u].right: ", $i
-		    p (*($arg3*)$value).$arg4
-		    set $ElementsFound++
-		end
-		if $node._M_right != 0
-		    set $node = $node._M_right
-		    while $node._M_left != 0
-			set $node = $node._M_left
-		    end
-		else
-		    set $tmp_node = $node._M_parent
-		    while $node == $tmp_node._M_right
-			set $node = $tmp_node
-			set $tmp_node = $tmp_node._M_parent
-		    end
-		    if $node._M_right != $tmp_node
-			set $node = $tmp_node
-		    end
-		end
-		set $i++
-	    end
-	    printf "Number of elements found = %u\n", $ElementsFound
-	end
-	printf "Map size = %u\n", $tree_size
+    set $tree = $arg0
+    set $i = 0
+    set $node = $tree._M_t._M_impl._M_header._M_left
+    set $end = $tree._M_t._M_impl._M_header
+    set $tree_size = $tree._M_t._M_impl._M_node_count
+    if $argc == 1
+        printf "Map "
+        whatis $tree
+        printf "Use pmap <variable_name> <left_element_type> <right_element_type> to see the elements in the map.\n"
+    end
+    if $argc == 5
+        while $i < $tree_size
+        set $value = (void *)($node + 1)
+        printf "elem[%u].left: ", $i
+        p (*($arg1*)$value).$arg2
+        set $value = $value + sizeof($arg1)
+        printf "elem[%u].right: ", $i
+        p (*($arg3*)$value).$arg4
+        if $node._M_right != 0
+            set $node = $node._M_right
+            while $node._M_left != 0
+            set $node = $node._M_left
+            end
+        else
+            set $tmp_node = $node._M_parent
+            while $node == $tmp_node._M_right
+            set $node = $tmp_node
+            set $tmp_node = $tmp_node._M_parent
+            end
+            if $node._M_right != $tmp_node
+            set $node = $tmp_node
+            end
+        end
+        set $i++
+        end
+    end
+    if $argc == 6
+        set $idx = $arg5
+        set $ElementsFound = 0
+        while $i < $tree_size
+        set $value = (void *)($node + 1)
+        if *($arg1*)$value == $idx
+            printf "elem[%u].left: ", $i
+            p (*($arg1*)$value).$arg2
+            set $value = $value + sizeof($arg1)
+            printf "elem[%u].right: ", $i
+            p (*($arg3*)$value).$arg4
+            set $ElementsFound++
+        end
+        if $node._M_right != 0
+            set $node = $node._M_right
+            while $node._M_left != 0
+            set $node = $node._M_left
+            end
+        else
+            set $tmp_node = $node._M_parent
+            while $node == $tmp_node._M_right
+            set $node = $tmp_node
+            set $tmp_node = $tmp_node._M_parent
+            end
+            if $node._M_right != $tmp_node
+            set $node = $tmp_node
+            end
+        end
+        set $i++
+        end
+        printf "Number of elements found = %u\n", $ElementsFound
+    end
+    printf "Map size = %u\n", $tree_size
     end
 end
 
@@ -531,71 +531,71 @@ end
 
 define pset
     if $argc == 0
-	help pset
+    help pset
     else
-	set $tree = $arg0
-	set $i = 0
-	set $node = $tree._M_t._M_impl._M_header._M_left
-	set $end = $tree._M_t._M_impl._M_header
-	set $tree_size = $tree._M_t._M_impl._M_node_count
-	if $argc == 1
-	    printf "Set "
-	    whatis $tree
-	    printf "Use pset <variable_name> <element_type> to see the elements in the set.\n"
-	end
-	if $argc == 2
-	    while $i < $tree_size
-		set $value = (void *)($node + 1)
-		printf "elem[%u]: ", $i
-		p *($arg1*)$value
-		if $node._M_right != 0
-		    set $node = $node._M_right
-		    while $node._M_left != 0
-			set $node = $node._M_left
-		    end
-		else
-		    set $tmp_node = $node._M_parent
-		    while $node == $tmp_node._M_right
-			set $node = $tmp_node
-			set $tmp_node = $tmp_node._M_parent
-		    end
-		    if $node._M_right != $tmp_node
-			set $node = $tmp_node
-		    end
-		end
-		set $i++
-	    end
-	end
-	if $argc == 3
-	    set $idx = $arg2
-	    set $ElementsFound = 0
-	    while $i < $tree_size
-		set $value = (void *)($node + 1)
-		if *($arg1*)$value == $idx
-		    printf "elem[%u]: ", $i
-		    p *($arg1*)$value
-		    set $ElementsFound++
-		end
-		if $node._M_right != 0
-		    set $node = $node._M_right
-		    while $node._M_left != 0
-			set $node = $node._M_left
-		    end
-		else
-		    set $tmp_node = $node._M_parent
-		    while $node == $tmp_node._M_right
-			set $node = $tmp_node
-			set $tmp_node = $tmp_node._M_parent
-		    end
-		    if $node._M_right != $tmp_node
-			set $node = $tmp_node
-		    end
-		end
-		set $i++
-	    end
-	    printf "Number of elements found = %u\n", $ElementsFound
-	end
-	printf "Set size = %u\n", $tree_size
+    set $tree = $arg0
+    set $i = 0
+    set $node = $tree._M_t._M_impl._M_header._M_left
+    set $end = $tree._M_t._M_impl._M_header
+    set $tree_size = $tree._M_t._M_impl._M_node_count
+    if $argc == 1
+        printf "Set "
+        whatis $tree
+        printf "Use pset <variable_name> <element_type> to see the elements in the set.\n"
+    end
+    if $argc == 2
+        while $i < $tree_size
+        set $value = (void *)($node + 1)
+        printf "elem[%u]: ", $i
+        p *($arg1*)$value
+        if $node._M_right != 0
+            set $node = $node._M_right
+            while $node._M_left != 0
+            set $node = $node._M_left
+            end
+        else
+            set $tmp_node = $node._M_parent
+            while $node == $tmp_node._M_right
+            set $node = $tmp_node
+            set $tmp_node = $tmp_node._M_parent
+            end
+            if $node._M_right != $tmp_node
+            set $node = $tmp_node
+            end
+        end
+        set $i++
+        end
+    end
+    if $argc == 3
+        set $idx = $arg2
+        set $ElementsFound = 0
+        while $i < $tree_size
+        set $value = (void *)($node + 1)
+        if *($arg1*)$value == $idx
+            printf "elem[%u]: ", $i
+            p *($arg1*)$value
+            set $ElementsFound++
+        end
+        if $node._M_right != 0
+            set $node = $node._M_right
+            while $node._M_left != 0
+            set $node = $node._M_left
+            end
+        else
+            set $tmp_node = $node._M_parent
+            while $node == $tmp_node._M_right
+            set $node = $tmp_node
+            set $tmp_node = $tmp_node._M_parent
+            end
+            if $node._M_right != $tmp_node
+            set $node = $tmp_node
+            end
+        end
+        set $i++
+        end
+        printf "Number of elements found = %u\n", $ElementsFound
+    end
+    printf "Set size = %u\n", $tree_size
     end
 end
 
@@ -616,31 +616,31 @@ end
 
 define pdequeue
     if $argc == 0
-	help pdequeue
+    help pdequeue
     else
-	set $size = 0
-	set $start_cur = $arg0._M_impl._M_start._M_cur
-	set $start_last = $arg0._M_impl._M_start._M_last
-	set $start_stop = $start_last
-	while $start_cur != $start_stop
-	    p *$start_cur
-	    set $start_cur++
-	    set $size++
-	end
-	set $finish_first = $arg0._M_impl._M_finish._M_first
-	set $finish_cur = $arg0._M_impl._M_finish._M_cur
-	set $finish_last = $arg0._M_impl._M_finish._M_last
-	if $finish_cur < $finish_last
-	    set $finish_stop = $finish_cur
-	else
-	    set $finish_stop = $finish_last
-	end
-	while $finish_first != $finish_stop
-	    p *$finish_first
-	    set $finish_first++
-	    set $size++
-	end
-	printf "Dequeue size = %u\n", $size
+    set $size = 0
+    set $start_cur = $arg0._M_impl._M_start._M_cur
+    set $start_last = $arg0._M_impl._M_start._M_last
+    set $start_stop = $start_last
+    while $start_cur != $start_stop
+        p *$start_cur
+        set $start_cur++
+        set $size++
+    end
+    set $finish_first = $arg0._M_impl._M_finish._M_first
+    set $finish_cur = $arg0._M_impl._M_finish._M_cur
+    set $finish_last = $arg0._M_impl._M_finish._M_last
+    if $finish_cur < $finish_last
+        set $finish_stop = $finish_cur
+    else
+        set $finish_stop = $finish_last
+    end
+    while $finish_first != $finish_stop
+        p *$finish_first
+        set $finish_first++
+        set $size++
+    end
+    printf "Dequeue size = %u\n", $size
     end
 end
 
@@ -660,17 +660,17 @@ end
 
 define pstack
     if $argc == 0
-	help pstack
+    help pstack
     else
-	set $start_cur = $arg0.c._M_impl._M_start._M_cur
-	set $finish_cur = $arg0.c._M_impl._M_finish._M_cur
-	set $size = $finish_cur - $start_cur
+    set $start_cur = $arg0.c._M_impl._M_start._M_cur
+    set $finish_cur = $arg0.c._M_impl._M_finish._M_cur
+    set $size = $finish_cur - $start_cur
         set $i = $size - 1
         while $i >= 0
             p *($start_cur + $i)
             set $i--
         end
-	printf "Stack size = %u\n", $size
+    printf "Stack size = %u\n", $size
     end
 end
 
@@ -690,17 +690,17 @@ end
 
 define pqueue
     if $argc == 0
-	help pqueue
+    help pqueue
     else
-	set $start_cur = $arg0.c._M_impl._M_start._M_cur
-	set $finish_cur = $arg0.c._M_impl._M_finish._M_cur
-	set $size = $finish_cur - $start_cur
+    set $start_cur = $arg0.c._M_impl._M_start._M_cur
+    set $finish_cur = $arg0.c._M_impl._M_finish._M_cur
+    set $size = $finish_cur - $start_cur
         set $i = 0
         while $i < $size
             p *($start_cur + $i)
             set $i++
         end
-	printf "Queue size = %u\n", $size
+    printf "Queue size = %u\n", $size
     end
 end
 
@@ -720,26 +720,26 @@ end
 
 define ppqueue
     if $argc == 0
-	help ppqueue
+    help ppqueue
     else
-	set $size = $arg0.c._M_impl._M_finish - $arg0.c._M_impl._M_start
-	set $capacity = $arg0.c._M_impl._M_end_of_storage - $arg0.c._M_impl._M_start
-	set $i = $size - 1
-	while $i >= 0
-	    p *($arg0.c._M_impl._M_start + $i)
-	    set $i--
-	end
-	printf "Priority queue size = %u\n", $size
-	printf "Priority queue capacity = %u\n", $capacity
+    set $size = $arg0.c._M_impl._M_finish - $arg0.c._M_impl._M_start
+    set $capacity = $arg0.c._M_impl._M_end_of_storage - $arg0.c._M_impl._M_start
+    set $i = $size - 1
+    while $i >= 0
+        p *($arg0.c._M_impl._M_start + $i)
+        set $i--
+    end
+    printf "Priority queue size = %u\n", $size
+    printf "Priority queue capacity = %u\n", $capacity
     end
 end
 
 document ppqueue
-	Prints std::priority_queue<T> information.
-	Syntax: ppqueue <priority_queue>: Prints all elements, size and capacity of the priority_queue
-	Priority_queue elements are listed "top to buttom" (top-most element is the first to come on pop)
-	Example:
-	ppqueue pq - prints all elements, size and capacity of pq
+    Prints std::priority_queue<T> information.
+    Syntax: ppqueue <priority_queue>: Prints all elements, size and capacity of the priority_queue
+    Priority_queue elements are listed "top to buttom" (top-most element is the first to come on pop)
+    Example:
+    ppqueue pq - prints all elements, size and capacity of pq
 end
 
 
@@ -750,17 +750,17 @@ end
 
 define pbitset
     if $argc == 0
-	help pbitset
+    help pbitset
     else
         p /t $arg0._M_w
     end
 end
 
 document pbitset
-	Prints std::bitset<n> information.
-	Syntax: pbitset <bitset>: Prints all bits in bitset
-	Example:
-	pbitset b - prints all bits in b
+    Prints std::bitset<n> information.
+    Syntax: pbitset <bitset>: Prints all bits in bitset
+    Example:
+    pbitset b - prints all bits in b
 end
 
 
@@ -771,20 +771,20 @@ end
 
 define pstring
     if $argc == 0
-	help pstring
+    help pstring
     else
-	printf "String \t\t\t= \"%s\"\n", $arg0._M_data()
-	printf "String size/length \t= %u\n", $arg0._M_rep()._M_length
-	printf "String capacity \t= %u\n", $arg0._M_rep()._M_capacity
-	printf "String ref-count \t= %d\n", $arg0._M_rep()._M_refcount
+    printf "String \t\t\t= \"%s\"\n", $arg0._M_data()
+    printf "String size/length \t= %u\n", $arg0._M_rep()._M_length
+    printf "String capacity \t= %u\n", $arg0._M_rep()._M_capacity
+    printf "String ref-count \t= %d\n", $arg0._M_rep()._M_refcount
     end
 end
 
 document pstring
-	Prints std::string information.
-	Syntax: pstring <string>
-	Example:
-	pstring s - Prints content, size/length, capacity and ref-count of string s
+    Prints std::string information.
+    Syntax: pstring <string>
+    Example:
+    pstring s - Prints content, size/length, capacity and ref-count of string s
 end
 
 #
@@ -793,18 +793,18 @@ end
 
 define pwstring
     if $argc == 0
-	help pwstring
+    help pwstring
     else
-	call printf("WString \t\t= \"%ls\"\n", $arg0._M_data())
-	printf "WString size/length \t= %u\n", $arg0._M_rep()._M_length
-	printf "WString capacity \t= %u\n", $arg0._M_rep()._M_capacity
-	printf "WString ref-count \t= %d\n", $arg0._M_rep()._M_refcount
+    call printf("WString \t\t= \"%ls\"\n", $arg0._M_data())
+    printf "WString size/length \t= %u\n", $arg0._M_rep()._M_length
+    printf "WString capacity \t= %u\n", $arg0._M_rep()._M_capacity
+    printf "WString ref-count \t= %d\n", $arg0._M_rep()._M_refcount
     end
 end
 
 document pwstring
-	Prints std::wstring information.
-	Syntax: pwstring <wstring>
-	Example:
-	pwstring s - Prints content, size/length, capacity and ref-count of wstring s
+    Prints std::wstring information.
+    Syntax: pwstring <wstring>
+    Example:
+    pwstring s - Prints content, size/length, capacity and ref-count of wstring s
 end
