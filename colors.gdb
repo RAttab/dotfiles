@@ -3,7 +3,7 @@
 # Rémi Attab (remi.attab@gmail.com), 5 Apr 2013
 # FreeBSD-style copyright and disclaimer apply
 #
-# gdb script that colorizes the output of several gdb function.
+# gdb script that colorizes the output of several gdb functions.
 #
 # It accomplishes this feat by adding a hook the select gdb functions and
 # redirecting the output of the function into a temp file int the current
@@ -14,13 +14,19 @@
 #
 # Currently supported gdb functions include:
 # - backtraces
+# - up
+# - down
+# - frame
 # - info threads
+# - thread
 #
 # WARNING: This script introduces a number of annoying behaviours into gdb.
 #
-#    First up, calling backtrace or info threads when no program is running will
-#    screw up the output of any following commands because the post hook is
-#    never executed (no idea why). To fix this, call cleanup-pipe-file.
+#    First up, hooked commands that fail (eg. calling backtrace when no program
+#    running or calling down on frame 0) will screw up the output
+#    of any following commands. This happens because the post hook is never
+#    executed (no idea why) and so the logging remains enabled. To fix this,
+#    call cleanup-pipe-file.
 #
 #    Next, this script uses the logging functionality in gdb so if you're using
 #    it to record gdb outputs, this script will break your output whenever you
@@ -55,11 +61,25 @@ document cleanup-pipe-file
 end
 
 
+define do-generic-colors
+    # 1. Function names and the class they belong to
+    # 2. Function argument names
+    # 3. Stack frame number
+    # 4. Thread id colorization
+    # 5. File path and line number
+    shell cat ./.gdb-color-pipe | \
+        sed -r "s_([^<])(\b([a-zA-Z0-9_]+::)?[a-zA-Z0-9_?\.@]+)( ?)\(_\1$(tput setaf 3)$(tput bold)\2$(tput sgr0)\4(_g" | \
+        sed -r "s_([a-zA-Z0-9_#]*)=_$(tput setaf 4)$(tput bold)\1$(tput sgr0)=_g" | \
+        sed -r "s_^(#[0-9]*)_$(tput setaf 1)$(tput bold)\1$(tput sgr0)_" | \
+        sed -r "s_^([ \*]) ([0-9]+)_$(tput bold)$(tput setaf 6)\1 $(tput setaf 1)\2$(tput sgr0)_" | \
+        sed -r "s_(\.*[/A-Za-z0-9\+_\.\-]*):([0-9]+)\$_$(tput setaf 2)\1$(tput sgr0):$(tput setaf 6)\2$(tput sgr0)_g"
+end
+
 #------------------------------------------------------------------------------#
 # Prompt
 #------------------------------------------------------------------------------#
 
-# \todo I believe this has a tendency to bork the file output.
+# \todo I believe this has a tendency to bork the prompt
 set prompt \033[01;34m(gdb) \033[01;00m
 
 
@@ -72,16 +92,49 @@ define hook-backtrace
 end
 
 define hookpost-backtrace
-    # 1. Function names and the class they belong to
-    # 2. Function argument names
-    # 3. Stack frame number
-    # 4. File path and line number
-    shell cat ./.gdb-color-pipe | \
-        sed -r "s_([^<])(\b([a-zA-Z0-9_]+::)?[a-zA-Z0-9_?]+)( ?)\(_\1$(tput setaf 3)$(tput bold)\2$(tput sgr0)\4(_g" | \
-        sed -r "s_([a-zA-Z0-9_#]*)=_$(tput setaf 4)$(tput bold)\1$(tput sgr0)=_g" | \
-        sed -r "s_^(#[0-9]*)_$(tput setaf 1)$(tput bold)\1$(tput sgr0)_" | \
-        sed -r "s_(\.*[/A-Za-z0-9\+_\.\-]*):([0-9]+)\$_$(tput setaf 2)\1$(tput sgr0):$(tput setaf 6)\2$(tput sgr0)_g"
+    do-generic-colors
+    cleanup-pipe-file
+end
 
+
+#------------------------------------------------------------------------------#
+# up
+#------------------------------------------------------------------------------#
+
+define hook-up
+    setup-pipe-file
+end
+
+define hookpost-up
+    do-generic-colors
+    cleanup-pipe-file
+end
+
+
+#------------------------------------------------------------------------------#
+# down
+#------------------------------------------------------------------------------#
+
+define hook-down
+    setup-pipe-file
+end
+
+define hookpost-down
+    do-generic-colors
+    cleanup-pipe-file
+end
+
+
+#------------------------------------------------------------------------------#
+# frame
+#------------------------------------------------------------------------------#
+
+define hook-frame
+    setup-pipe-file
+end
+
+define hookpost-frame
+    do-generic-colors
     cleanup-pipe-file
 end
 
@@ -95,14 +148,20 @@ define info hook-threads
 end
 
 define info hookpost-threads
-    # 1. Function names
-    # 2. Function argument names
-    # 3. thread id and selected thread
-    # 4. File path and line number
-    shell cat ./.gdb-color-pipe | \
-        sed -r "s_([^<])(\b([a-zA-Z0-9_]+::)?[a-zA-Z0-9_?\.@]+)( ?)\(_\1$(tput setaf 3)$(tput bold)\2$(tput sgr0)\4(_g" | \
-        sed -r "s_([a-zA-Z0-9_#]*)=_$(tput setaf 4)$(tput bold)\1$(tput sgr0)=_g" | \
-        sed -r "s_^([ \*]) ([0-9]+)_$(tput bold)$(tput setaf 6)\1 $(tput setaf 1)\2$(tput sgr0)_" | \
-        sed -r "s_(\.*[/A-Za-z0-9\+_\.\-]*):([0-9]+)\$_$(tput setaf 2)\1$(tput sgr0):$(tput setaf 6)\2$(tput sgr0)_g"
+    do-generic-colors
+    cleanup-pipe-file
+end
+
+
+#------------------------------------------------------------------------------#
+# thread
+#------------------------------------------------------------------------------#
+
+define hook-thread
+    setup-pipe-file
+end
+
+define hookpost-thread
+    do-generic-colors
     cleanup-pipe-file
 end
