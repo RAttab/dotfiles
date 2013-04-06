@@ -13,7 +13,7 @@
 # It also colorizes the prompt as an extra bonus.
 #
 # Currently supported gdb functions include:
-# - backtraces
+# - backtrace
 # - up
 # - down
 # - frame
@@ -26,7 +26,7 @@
 #    running or calling down on frame 0) will screw up the output
 #    of any following commands. This happens because the post hook is never
 #    executed (no idea why) and so the logging remains enabled. To fix this,
-#    call cleanup-pipe-file.
+#    call cleanup-color-pipe.
 #
 #    Next, this script uses the logging functionality in gdb so if you're using
 #    it to record gdb outputs, this script will break your output whenever you
@@ -43,21 +43,21 @@
 # Utils
 #------------------------------------------------------------------------------#
 
-define setup-pipe-file
+define setup-color-pipe
     shell rm -f ./.gdb-color-pipe
     set logging redirect on
     set logging on ./.gdb-color-pipe
 end
 
-define cleanup-pipe-file
+define cleanup-color-pipe
     set logging off
     set logging redirect off
     shell rm -f ./.gdb-color-pipe
 end
 
-document cleanup-pipe-file
+document cleanup-color-pipe
     Disables command redirection and removes the color pipe file.
-    Syntax: cleanup-pipe-file
+    Syntax: cleanup-color-pipe
 end
 
 
@@ -88,12 +88,12 @@ set prompt \033[01;34m(gdb) \033[01;00m
 #------------------------------------------------------------------------------#
 
 define hook-backtrace
-    setup-pipe-file
+    setup-color-pipe
 end
 
 define hookpost-backtrace
     do-generic-colors
-    cleanup-pipe-file
+    cleanup-color-pipe
 end
 
 
@@ -102,12 +102,12 @@ end
 #------------------------------------------------------------------------------#
 
 define hook-up
-    setup-pipe-file
+    setup-color-pipe
 end
 
 define hookpost-up
     do-generic-colors
-    cleanup-pipe-file
+    cleanup-color-pipe
 end
 
 
@@ -116,12 +116,12 @@ end
 #------------------------------------------------------------------------------#
 
 define hook-down
-    setup-pipe-file
+    setup-color-pipe
 end
 
 define hookpost-down
     do-generic-colors
-    cleanup-pipe-file
+    cleanup-color-pipe
 end
 
 
@@ -130,12 +130,12 @@ end
 #------------------------------------------------------------------------------#
 
 define hook-frame
-    setup-pipe-file
+    setup-color-pipe
 end
 
 define hookpost-frame
     do-generic-colors
-    cleanup-pipe-file
+    cleanup-color-pipe
 end
 
 
@@ -144,12 +144,12 @@ end
 #------------------------------------------------------------------------------#
 
 define info hook-threads
-    setup-pipe-file
+    setup-color-pipe
 end
 
 define info hookpost-threads
     do-generic-colors
-    cleanup-pipe-file
+    cleanup-color-pipe
 end
 
 
@@ -158,10 +158,10 @@ end
 #------------------------------------------------------------------------------#
 
 define hook-thread
-    setup-pipe-file
+    setup-color-pipe
 end
 
 define hookpost-thread
     do-generic-colors
-    cleanup-pipe-file
+    cleanup-color-pipe
 end
