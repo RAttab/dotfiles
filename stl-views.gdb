@@ -55,22 +55,22 @@ end
 
 document pstl
     The following STL containers are currently supported:
-         std::shared_ptr<T>    - via pshared command
-         std::unique_ptr<T>    - via punique command
-         std::array<T>        - via parray command
-         std::vector<T>        - via pvector command
-         std::list<T>        - via plist or plist_member command
-         std::map<T,T>        - via pmap or pmap_member command
-         std::multimap<T,T>    - via pmap or pmap_member command
-         std::set<T>        - via pset command
-         std::multiset<T>    - via pset command
-         std::deque<T>        - via pdequeue command
-         std::stack<T>        - via pstack command
-         std::queue<T>        - via pqueue command
+         std::shared_ptr<T>     - via pshared command
+         std::unique_ptr<T>     - via punique command
+         std::array<T>          - via parray command
+         std::vector<T>         - via pvector command
+         std::list<T>           - via plist or plist_member command
+         std::map<T,T>          - via pmap or pmap_member command
+         std::multimap<T,T>     - via pmap or pmap_member command
+         std::set<T>            - via pset command
+         std::multiset<T>       - via pset command
+         std::deque<T>          - via pdequeue command
+         std::stack<T>          - via pstack command
+         std::queue<T>          - via pqueue command
          std::priority_queue<T> - via ppqueue command
-         std::bitset<n>        - via pbitset command
-         std::string        - via pstring command
-         std::widestring    - via pwstring command
+         std::bitset<n>         - via pbitset command
+         std::string            - via pstring command
+         std::widestring        - via pwstring command
 end
 
 
