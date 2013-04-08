@@ -3,7 +3,8 @@
 [color]
 	ui = auto
 [alias]
-	log = log --stat
+	st = status -sb
+	lg = log --stat
 	graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 	diff-master = !echo "diff master...origin/master:" && git diff master...origin/master --stat && echo "" && echo "diff origin/master...master:" && git diff origin/master...master --stat
 
