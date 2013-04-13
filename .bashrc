@@ -39,9 +39,11 @@ xterm*|rxvt*)
     ;;
 esac
 
-export ALTERNATE_EDITOR="" # Autostarts the emacs-daemon if not there.
-alias emacs='emacsclient -t'
-export EDITOR='emacsclient -t'
+alias emacs='emacsclient -t -a ""'
+export EDITOR='emacsclient -t -a ""'
+function kill-emacs-daemon {
+    ps ux | grep 'emacs --daemon' | grep -v 'grep' | awk '{ print $2 }' | xargs kill
+}
 
 # refined history search (up/down arrows) to typed characters.
 bind '"\e[A": history-search-backward'
