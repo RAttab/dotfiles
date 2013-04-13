@@ -1,5 +1,3 @@
-[core]
-	editor = emacs -nw -q
 [color]
 	ui = auto
 [alias]
