@@ -39,6 +39,7 @@ xterm*|rxvt*)
     ;;
 esac
 
+export ALTERNATE_EDITOR="" # Autostarts the emacs-daemon if not there.
 alias emacs='emacsclient -t'
 export EDITOR='emacsclient -t'
 
