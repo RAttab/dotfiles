@@ -39,7 +39,8 @@ xterm*|rxvt*)
     ;;
 esac
 
-export EDITOR='emacs -nw'
+alias emacs='emacsclient -t'
+export EDITOR='emacsclient -t'
 
 # refined history search (up/down arrows) to typed characters.
 bind '"\e[A": history-search-backward'
