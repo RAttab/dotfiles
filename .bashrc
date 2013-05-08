@@ -39,6 +39,8 @@ xterm*|rxvt*)
     ;;
 esac
 
+alias gdb='gdb -q'
+
 alias emacs='emacsclient -t -a ""'
 export EDITOR='emacsclient -t -a ""'
 function kill-emacs-daemon {

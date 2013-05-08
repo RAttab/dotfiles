@@ -23,6 +23,20 @@ set print asm-demangle on
 set demangle-style gnu-v3
 set print sevenbit-strings off
 
+#
+# Utilities
+#
+
+define run_and_exit
+    catch throw
+    python gdb.events.exited.connect(lambda x : gdb.execute("quit"))
+    run
+end
+
+document run_and_exit
+Runs the program and exits if no error occur.
+end
+
 
 ################################################################################
 # Electric Fence
