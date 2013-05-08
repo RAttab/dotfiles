@@ -7,7 +7,7 @@
 
 	cm = commit -m
 	ca = commit --amend
-	rb = !git fetch && git rebase
+	rb = !git fetch && git rebase && git st
 
 	up = submodule update --init
         submodules-to-master = submodule foreach "git fetch && git checkout master && git rebase"
