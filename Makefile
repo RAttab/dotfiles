@@ -15,7 +15,7 @@ all:
 # symlink targets
 #------------------------------------------------------------------------------#
 
-# Creates a target out of $1 which symlinks $1 to ~/$2/$1
+# Creates the target $1 which symlinks the file ~/dotfiles/$1 to ~/$2/$1
 define symlink
 $1:
 	-rm -f ~/$2/$1
