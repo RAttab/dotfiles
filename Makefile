@@ -18,7 +18,8 @@ all:
 # Creates the target $1 which symlinks the file ~/dotfiles/$1 to ~/$2/$1
 define symlink
 $1:
-	-rm -f ~/$2/$1
+	@-mkdir -p $(dir ~/$2/$1)
+	@-rm -f ~/$2/$1
 	ln -s ~/dotfiles/$1 ~/$2/$1
 
 .PHONY: $1 # symlinks make bad target so make them phonies.
