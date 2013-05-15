@@ -76,6 +76,11 @@ function fail-test {
     make -n test 2>&1 | egrep "^rm -f build/x86_64/tests/.+\.\{passed,failed\}.*" | sed -r "s#^rm -f build/x86_64/tests/(.+)\.\{passed,failed\}.*#\\1#"
 }
 
+if [ -f /usr/lib/debug/boot/vmlinux-$(uname -r) ]; then
+    alias perf-report='perf report -k /usr/lib/debug/boot/vmlinux-$(uname -r)'
+    alias perf-script='perf script -k /usr/lib/debug/boot/vmlinux-$(uname -r)'
+fi
+
 # env specific aliases
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
