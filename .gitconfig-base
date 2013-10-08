@@ -8,7 +8,7 @@
 	cm = commit -m
 	ca = commit --amend
 	rb = !git fetch && git rebase && git st
-	cl = !git reset --hard && git clean -df
+	cl = !git reset --hard && git clean -df && git st
 
-	up = submodule update --init
+	up = !git submodule update --init && git st
         submodules-to-master = submodule foreach "git fetch && git checkout master && git rebase"
