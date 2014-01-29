@@ -46,4 +46,9 @@ $(eval $(call symlink,bin/rloop))
 	cat ~/.gitconfig-head > $@
 	cat .gitconfig-base >> $@
 
-all: ~/.gitconfig
+~/.config/termintor/config: terminator-config
+	@-mkdir -p ~/.config/terminator/
+	@-rm -f ~/.config/terminator/config
+	ln -s ~/dotfiles/$< ~/.config/terminator/config
+
+all: ~/.gitconfig ~/.config/termintor/config

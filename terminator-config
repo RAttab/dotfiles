@@ -1,0 +1,36 @@
+[global_config]
+  title_hide_sizetext = True
+  window_state = maximise
+  enabled_plugins = TerminalShot, APTURLHandler
+  title_transmit_bg_color = "#d30102"
+  focus = system
+
+[keybindings]
+  broadcast_group = <Super>b
+  broadcast_off = <Shift><Super>b
+
+[profiles]
+  [[default]]
+    copy_on_selection = True
+    scrollback_lines = 50000
+    font = Bitstream Vera Sans Mono 8
+    use_system_font = False
+    visible_bell = True
+
+    # solarized-dark
+    # palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    foreground_color = "#eee8d5"
+    background_color = "#002b36"
+    cursor_color = "#eee8d5"
+
+[layouts]
+  [[default]]
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = solarized-dark
+    [[[window0]]]
+      type = Window
+      parent = ""
+[plugins]
+
