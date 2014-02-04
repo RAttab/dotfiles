@@ -5,25 +5,22 @@
   focus = system
   title_transmit_bg_color = "#d30102"
 [keybindings]
+  broadcast_all = None
   broadcast_group = <Super>b
   broadcast_off = <Shift><Super>b
 [profiles]
   [[default]]
-    palette = "#748084:#cc0000:#4e9a06:#c4a000:#3465a4:#75507b:#06989a:#d3d7cf:#555753:#ef2929:#8ae234:#fce94f:#729fcf:#ad7fa8:#34e2e2:#eeeeec"
-    font = Bitstream Vera Sans Mono 8
+    use_system_font = False
+    font = Bitstream Vera Sans Mono 10
     visible_bell = True
     scrollback_lines = 50000
-    use_system_font = False
     cursor_color = "#eee8d5"
-    foreground_color = "#eee8d5"
     copy_on_selection = True
-    background_color = "#002b36"
 [layouts]
   [[default]]
     [[[child1]]]
       type = Terminal
       parent = window0
-      profile = solarized-dark
     [[[window0]]]
       type = Window
       parent = ""

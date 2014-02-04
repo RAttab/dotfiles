@@ -39,6 +39,8 @@ xterm*|rxvt*)
     ;;
 esac
 
+export TERM=xterm-256color
+
 alias gdb='gdb -q'
 
 alias emacs='emacsclient -t -a ""'
