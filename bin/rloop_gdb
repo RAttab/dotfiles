@@ -5,5 +5,5 @@ while [ $? -eq 0 ]; do
     c=$(($c+1))
     echo
     echo "ATTEMPT $c ==========================================================="
-    $@
+    gdb -q -return-child-result -ex run_and_exit --args $@
 done
