@@ -32,10 +32,6 @@
 #    it to record gdb outputs, this script will break your output whenever you
 #    call one of the hook-ed commands.
 #
-#    Finally, sometimes, when searching through command history (up arrow) the
-#    prompt will become borked by including the previous commands. Yet again, I
-#    have no idea why this happens.
-#
 ################################################################################
 
 
@@ -79,8 +75,8 @@ end
 # Prompt
 #------------------------------------------------------------------------------#
 
-# \todo I believe this has a tendency to bork the prompt
-set prompt \033[01;34m(gdb) \033[01;00m
+# The \001 and \002 tell libreadline to ignore the color codes
+set prompt \001\033[01;34m\002(gdb) \001\033[0m\002
 
 
 #------------------------------------------------------------------------------#
