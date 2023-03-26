@@ -3,12 +3,9 @@
 ################################################################################
 
 source ~/dotfiles/stl-views.gdb
-source ~/dotfiles/dasdb.gdb
-source ~/dotfiles/jml.gdb
-source ~/dotfiles/colors.gdb
-
 
 set disassembly-flavor intel
+set debuginfod enabled on
 
 #
 # C++ related beautifiers
