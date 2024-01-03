@@ -32,6 +32,8 @@ $(eval $(call symlink,.gdbinit))
 $(eval $(call symlink,.htoprc))
 $(eval $(call symlink,bin/rloop))
 $(eval $(call symlink,bin/rloop_gdb))
+$(eval $(call symlink,bin/win-save))
+$(eval $(call symlink,bin/win-load))
 
 
 #------------------------------------------------------------------------------#

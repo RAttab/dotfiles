@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+
+session="${HOME}/.win-session"
+classes="discord.discord Navigator.firefox steamwebhelper.steam terminator.Terminator"
+
+if [ -f "${session}" ]; then rm "${session}"; fi
+
+for class in ${classes}; do
+    wmctrl -lGx | \
+        tr -s ' ' | \
+        grep "${class}" | \
+        awk '{print $1, $2, $3, 0, $5, $6 }' >> "${session}"
+done

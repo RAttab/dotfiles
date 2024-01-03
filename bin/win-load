@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+
+session="${HOME}/.win-session"
+
+while read line; do
+
+    cmd=$(echo "${line}" | \
+          awk '{printf "wmctrl -ir %s -e %s,%s,%s,%s,%s\n", $1, $2, $3, $4, $5, $6 }' )
+    bash -c "${cmd}"
+
+    cmd=$(echo "${line}" | \
+          awk '{printf "wmctrl -ir %s -b add,maximized_vert\n", $1 }' )
+    bash -c "${cmd}"
+
+done < "${session}"
