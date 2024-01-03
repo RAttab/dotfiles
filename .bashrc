@@ -38,33 +38,12 @@ On_White='\e[47m'       # White
 
 NC="\e[m"               # Color Reset
 
-
-# new alert text
-ALERT=${BWhite}${On_Red} # Bold White on red background
-
-# mostly used alias functions
-
-alias cls="clear"
-alias ..="cd .."
-alias cd..="cd .."
 alias ls="ls -CF --color=auto"
 alias ll="ls -lisa --color=auto"
-alias lsl="ls -lhFA | less"
-alias home="cd ~"
-alias df="df -ahiT --total"
-alias mkdir="mkdir -pv"
-alias userlist="cut -d: -f1 /etc/passwd"
-alias fhere="find . -name "
-alias free="free -mt"
-alias du="du -ach | sort -h"
-alias ps="ps auxf"
-alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
-alias wget="wget -c"
-alias histg="history | grep"
-alias myip="curl http://ipecho.net/plain; echo"
-alias logs="find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1 | sed -e's/:$//g' | grep -v '[0-9]$' | xargs tail -f"
-alias folders='find . -maxdepth 1 -type d -print0 | xargs -0 du -sk | sort -rn'
 alias grep='grep --color=auto'
+
+alias gdb='gdb -q'
+alias startx='ssh-agent startx'
 
 # Creates an archive (*.tar.gz) from given directory.
 function maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
@@ -104,41 +83,13 @@ function extract {
 fi
 }
 
-# jump directorys upwards until it hits a directory with multiple folders
-up(){
-  local d=""
-  limit=$1
-  for ((i=1 ; i <= limit ; i++))
-    do
-      d=$d/..
-    done
-  d=$(echo $d | sed 's/^\///')
-  if [ -z "$d" ]; then
-    d=..
-  fi
-  cd $d
-}
-
-# create an directory and directly cd into it
-mcd () {
-  mkdir -p $1
-  cd $1
-}
-
 # set PATH so it includes user's private bin directories
 PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 export PS1="\[\033[38;5;12m\][\[$(tput sgr0)\]\[\033[38;5;10m\]\u\[$(tput sgr0)\]\[\033[38;5;12m\]@\[$(tput sgr0)\]\[\033[38;5;7m\]\h\[$(tput sgr0)\]\[\033[38;5;12m\]]\[$(tput sgr0)\]\[\033[38;5;15m\]: \[$(tput sgr0)\]\[\033[38;5;7m\]\w\[$(tput sgr0)\]\[\033[38;5;12m\]>\[$(tput sgr0)\]\[\033[38;5;10m\]\\$\[$(tput sgr0)\]\[\033[38;5;15m\] \[$(tput sgr0)\]"
 
-[ -e "/etc/DIR_COLORS" ] && DIR_COLORS="/etc/DIR_COLORS"
-[ -e "$HOME/.dircolors" ] && DIR_COLORS="$HOME/.dircolors"
-[ -e "$DIR_COLORS" ] || DIR_COLORS=""
-eval "`dircolors -b $DIR_COLORS`"
-
-
 alias emacs='emacsclient -t -a ""'
 export EDITOR='emacsclient -t -a ""'
-
 function kill-emacs-daemon {
     ps ux | grep 'emacs --daemon' | grep -v 'grep' | awk '{ print $2 }' | xargs kill
 }
@@ -146,6 +97,3 @@ function kill-emacs-daemon {
 # refined history search (up/down arrows) to typed characters.
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
-
-alias gdb='gdb -q'
-alias startx='ssh-agent startx'
