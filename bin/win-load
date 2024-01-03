@@ -3,13 +3,15 @@
 session="${HOME}/.win-session"
 
 while read line; do
+    id=$(echo "${line}" | cut -d ' ' -f 1)
+    wmctrl -ir "${id}" -b remove,maximized_vert,maximized_horz
 
     cmd=$(echo "${line}" | \
           awk '{printf "wmctrl -ir %s -e %s,%s,%s,%s,%s\n", $1, $2, $3, $4, $5, $6 }' )
     bash -c "${cmd}"
 
-    cmd=$(echo "${line}" | \
-          awk '{printf "wmctrl -ir %s -b add,maximized_vert\n", $1 }' )
-    bash -c "${cmd}"
-
+    wmctrl -ir "${id}" -b add,maximized_vert
+    if [ $(echo "${line}" | cut -d ' ' -f 5) -gt "2000" ]; then
+        wmctrl -ir "${id}" -b add,maximized_horz;
+    fi
 done < "${session}"
