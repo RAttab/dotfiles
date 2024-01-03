@@ -9,5 +9,6 @@ for class in ${classes}; do
     wmctrl -lGx | \
         tr -s ' ' | \
         grep "${class}" | \
-        awk '{print $1, $2, $3, 0, $5, $6 }' >> "${session}"
+        awk '{printf "%s %s %s 0 %s %s\n", $1, $2, $3 - 4, $5, $6 }' \
+        >> "${session}"
 done
