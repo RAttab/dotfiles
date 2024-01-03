@@ -20,8 +20,11 @@
     scrollback_lines = 500000
     copy_on_selection = True
   [[emacs]]
+    font = Inconsolata Medium 13
+    scrollbar_position = hidden
     use_custom_command = True
     custom_command = 'emacsclient -t -a ""'
+    use_system_font = False
     title_transmit_bg_color = "#ff7800"
     title_inactive_bg_color = "#ffa348"
 [layouts]
