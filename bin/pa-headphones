@@ -1,0 +1,5 @@
+#! /bin/sh
+
+sink=$(pactl list sinks short | grep bluez | cut -f1 -d$'\t')
+pactl set-default-sink "$sink"
+pactl list sink-inputs short | cut -f1 -d$'\t' | xargs -I@ pactl move-sink-input @ "$sink"

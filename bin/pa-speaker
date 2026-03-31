@@ -1,0 +1,6 @@
+#! /bin/sh
+
+sink="alsa_output.pci-0000_12_00.6.analog-stereo"
+
+pactl set-default-sink "$sink"
+pactl list sink-inputs short | cut -f1 -d$'\t' | xargs -I@ pactl move-sink-input @ "$sink"
